@@ -1,7 +1,14 @@
-const key='4d100bb424mshaaaecf4bd1066f5p1b5cb0jsn7cc8632e6b51';
-const host='https://coinranking1.p.rapidapi.com/coin/Qwsogvtv82FCd';
-const requests={
-    requestCoin : `${host}+?api_key=${key}`
-}
+import axios from "axios";
 
-export default requests;
+const API_KEY = '4d100bb424mshaaaecf4bd1066f5p1b5cb0jsn7cc8632e6b51';
+const BASE_URL = 'https://coinranking1.p.rapidapi.com/coins';
+
+const api = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    "x-rapidapi-host": 'coinranking1.p.rapidapi.com',
+    "x-rapidapi-key": API_KEY,
+  },
+});
+
+export default api;
