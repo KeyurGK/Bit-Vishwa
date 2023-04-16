@@ -32,7 +32,7 @@ const Login = () => {
           <input className='w-[60%] mx-[25%] mt-2 px-2 py-3 border-4 rounded border-purple-900' type='password' placeholder='Password' onChange={(e)=>setPassword(e.target.value)}/>
         </form>
         {error? <p className='p-3 bg-red-400 my-2'>{error}</p> : null}
-        <button className=' w-32 h-16 mx-[40%] mt-[5%] text-black font-rowdies text-lowercase border-4 border-purple-900 bg-purple-300 hover:bg-purple-500 '>Sign In</button>
+        <button className=' w-32 h-16 mx-[40%] mt-[5%] text-black font-rowdies text-lowercase border-4 border-purple-900 bg-purple-300 hover:bg-purple-500 ' onClick={handleSubmit}>Sign In</button>
       </div>
 
       <div className='flex justify-around mt-4'>
