@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_KEY = '4d100bb424mshaaaecf4bd1066f5p1b5cb0jsn7cc8632e6b51';
+const API_KEY = process.env.RAPID_API_KEY;
 const BASE_URL = 'https://coinranking1.p.rapidapi.com/coins';
 
 const crypto_api = axios.create({
