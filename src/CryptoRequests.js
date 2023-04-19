@@ -7,7 +7,7 @@ const crypto_api = axios.create({
   baseURL: BASE_URL,
   headers: {
     "x-rapidapi-host": 'coinranking1.p.rapidapi.com',
-    "x-rapidapi-key": process.env.RAPID_API_KEY,
+    "x-rapidapi-key": process.env.CRYPTO_API_KEY,
   },
 });
 
