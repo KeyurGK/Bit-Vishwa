@@ -7,7 +7,6 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import Home from './components/Home';
 import { AuthContextProvider } from "./context/AuthContext";
-require('dotenv').config()
 
 function App() {
   return (
