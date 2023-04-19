@@ -3,6 +3,7 @@ import React, { useState,useEffect } from 'react'
 import requests from '../CryptoRequests';
 import crypto_api from '../CryptoRequests';
 import exchRate_api from '../ExchRate';
+require('dotenv').config()
 
 const Home = () => {
     const [coins,setCoins]=useState([])
