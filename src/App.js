@@ -6,6 +6,7 @@ import Signup from "./components/Signup";
 import Home from "./components/Home";
 import { AuthContextProvider } from "./context/AuthContext";
 import Account from "./components/Account";
+import Landing from "./components/Landing";
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
       <AuthContextProvider>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Landing />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/account" element={<Account />} />
