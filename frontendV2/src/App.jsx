@@ -6,13 +6,14 @@ import {   BrowserRouter as Router,Route,Routes } from 'react-router-dom';
 import Home from './components/Home';
 import Login from './components/Login';
 import Signup from './components/Signup';
-
+import { Toaster } from 'sonner';
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
      {/* <Navbar /> */}
+     <Toaster richColors position="top-right" />
              <Routes>
                {/* <Route path="/" element={<Landing />} /> */}
                <Route path="/home" element={<Home />} />

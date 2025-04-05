@@ -1,9 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { SignUpValidation } from '../validation/SignUpValidation'
+import useAuthStore from '../zustand/useAuthStore'
+import { toast } from 'sonner';
 // import { UserAuth } from '../context/AuthContext'
 
 const Signup = () => {
+  useEffect(()=>{
+
+  },[])
+  const {loading,responseMessage,signUpAccount,error}=useAuthStore();
   const [formState,setFormState]=useState({
     firstName:"",
     lastName:"",
@@ -15,22 +21,23 @@ const Signup = () => {
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    const validationResult = SignUpValidation(formState)
-   console.log(validationResult,'validationResult')
-   if(Object.keys(validationResult).length > 0){
-    setErrors(validationResult);
-    return;
-   }
-    // try{
-    //   await signUp(email,password)
-    //   navigate('/')
-    // }
-    // catch(error)
-    // {
-    //   console.log(error)
-    // }
-  } 
+    e.preventDefault();
+    const validationResult = SignUpValidation(formState);
+    if (Object.keys(validationResult).length > 0) {
+      setErrors(validationResult);
+      return;
+    }
+  
+    await signUpAccount(formState);
+  
+    // Show toast for both success and error
+    if (responseMessage) {
+      toast.success(responseMessage);
+      navigate('/login'); // redirect after success if needed
+    } else if (error) {
+      toast.error(error);
+    }
+  };
   const handleChange = (e)=>{
     const{name,value}=e.target;   
     setFormState((prev)=>{
@@ -56,10 +63,10 @@ const Signup = () => {
           {errors.emailId &&  <p className='text-red-700 text-xs mr-[40%]'>{errors.emailId}</p>}
           <input name="password" className='w-[60%] mx-[25%] mt-2 px-2 py-3 border-4 rounded border-purple-900' type='password' placeholder='Password' onChange={(e)=>handleChange(e)}/>
           {errors.password &&  <p className='text-red-700 text-xs ml-[20%]'>{errors.password}</p>}
+          <button className=' w-32 h-16 mx-[40%] mt-[5%] text-black font-rowdies text-lowercase border-4 border-purple-900 bg-purple-300 hover:bg-purple-500 ' onClick={handleSubmit}>{loading ? 'Signing Up...':"Sign Up"}</button>
 
         </form>
 
-        <button className=' w-32 h-16 mx-[40%] mt-[5%] text-black font-rowdies text-lowercase border-4 border-purple-900 bg-purple-300 hover:bg-purple-500 ' onClick={handleSubmit}>Sign Up</button>
       </div>
 
       <div className='flex justify-around mt-4'>

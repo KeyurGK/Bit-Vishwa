@@ -1,6 +1,6 @@
 export const SignUpValidation = (data) => {
     const newErrors = {};
-    console.log(data, 'inside validation');
+  
   
     // First Name required
     if (!data.firstName.trim()) {

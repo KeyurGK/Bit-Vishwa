@@ -63,7 +63,13 @@ const signUp = async (req, res) => {
         });
     } catch (error) {
         console.error("Database error:", error);
-        res.status(400).json({
+        if (error.code === "23505") {
+            return res.status(409).json({
+                success: false,
+                message: "Email ID already exists",
+            });
+        }
+        res.status(500).json({
             success: false,
             message: "Error registering user",
         });
@@ -87,7 +93,7 @@ const login = async (req, res) => {
         }
         return res.status(200).json({
             success: true,
-            messsage:"Login Succesful"
+            message:"Login Succesful"
         })
        
     } catch (error) {
