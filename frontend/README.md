@@ -1,13 +1,12 @@
-## Bit Vishwa
+# React + Vite
 
-A 🌐Vishwa that presents the details of trending cryptos.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-# Features :
+Currently, two official plugins are available:
 
-1)Users can sign in/up to the account, and view the account details.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-2)Upon successful login a dashboard of trending top 10 cryptocurrencies with the real-time INR price.
+## Expanding the ESLint configuration
 
-![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![Firebase](https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white)
-
+If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.

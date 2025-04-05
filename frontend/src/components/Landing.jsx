@@ -1,7 +1,9 @@
 import React from "react";
-import bitVishwa from "../images/bitVishwaLogo.png";
+import bitVishwa from "../assets/bitVishwaLogo.png"
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Landing = () => {
+  const navigate = useNavigate()
   return (
     <div className="flex justify-center items-center mt-[10%]">
       <div className="text-emerald-500 text-center">
@@ -14,7 +16,7 @@ const Landing = () => {
             alt="Bit-Vishwa Logo"
           />
         </div>
-        <p>Sign In to continue</p>
+        <p className="cursor-pointer" onClick={navigate("/login")}>Sign In to continue</p>
       </div>
     </div>
   );

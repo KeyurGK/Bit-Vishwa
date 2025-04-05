@@ -1,19 +1,22 @@
 import { create } from 'zustand';
 import axios from 'axios';
 import { API_KEY } from './apiKey';
+import { useNavigate } from 'react-router-dom';
+import { toast } from "sonner";
 
 const useAuthStore = create((set)=>({
     responseMessage:null,
     error:null,
     loading:false,
-
+    isAuthenticated:false,
 
 
     signUpAccount: async (payload) => {
         set({ loading: true, responseMessage: null, error: null });
         try {
           const res = await axios.post(`${API_KEY}/bit-vishwa/v1/auth/signup`, payload);
-          set({ responseMessage: res.data.message });
+          set({ responseMessage: res.data.message
+        });
         } catch (error) {
           const message =
             error?.response?.data?.message || "Something went wrong during signup";
@@ -23,15 +26,17 @@ const useAuthStore = create((set)=>({
         }
       },
 
-    loginAccount: async(payload)=>{
-        set({loading:true,responseMessage:null,error:null})
+    loginAccount: async(payload,navigate)=>{
+        set({loading:true,responseMessage:null,error:null,isAuthenticated:false})
         try{
             const res = await axios.post(`${API_KEY}/bit-vishwa/v1/auth/login`,payload);
-            console.log(res.data.message)
+          
             set({
-                responseMessage :res?.data.message
+                responseMessage :res?.data.message,
+                isAuthenticated:true 
             })
-             
+             navigate("/home")
+             toast.success(res.data.message)
         }catch(error){
           
             set({
@@ -42,6 +47,10 @@ const useAuthStore = create((set)=>({
                 loading:false
             })
         }
+    },
+
+    logoutAccount: ()=>{
+        set({isAuthenticated:false})
     }
 }))
 

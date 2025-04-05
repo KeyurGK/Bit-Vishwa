@@ -1,23 +1,27 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UserAuth } from "../context/AuthContext";
+import useAuthStore from "../zustand/useAuthStore";
 
 const Navbar = () => {
-  const { user, logOut } = UserAuth();
+  // const { user, logOut } = UserAuth();
+  const {isAuthenticated,logoutAccount}=useAuthStore()
   const navigate = useNavigate();
 
-  const handleLogout = async () => {
-    try {
-      await logOut();
-      navigate("/");
-    } catch (error) {
-      console.log(error);
-    }
+  const handleLogout = () => {
+    logoutAccount();
+    navigate("/")
+    // try {
+    //   // await logOut();
+    //   console.log("called")
+    //   navigate("/");
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
-  console.log(user);
+ 
   return (
     <div className="flex justify-between mt-[2%]">
-      {user?.email ? (
+      {isAuthenticated ? (
         <Link to="/home">
           <h3 className="text-purple-500 font-rowdies text-4xl">Bit-Vishwa</h3>
         </Link>
@@ -26,32 +30,32 @@ const Navbar = () => {
           <h3 className="text-purple-500 font-rowdies text-4xl">Bit-Vishwa</h3>
         </Link>
       )}
-      {user?.email ? (
+      {isAuthenticated ? (
         <div className="flex justify-around w-[20%]">
-          <Link to="/account">
-            <button className="text-white hover:border-white px-4 py-2 hover:rounded-md hover:bg-purple-500">
+          {/* <Link to="/account"> */}
+            <button className="text-purple-400 border border-purple-600 rounded-md px-4 py-2 hover:rounded-md hover:bg-purple-500">
               Account
             </button>
-          </Link>
-          <Link>
+          {/* </Link> */}
+        
             <button
               onClick={handleLogout}
-              className="text-white hover:border-white px-4 py-2 hover:rounded-md hover:bg-purple-500"
+              className="text-purple-400 border border-purple-600 rounded-md px-4 py-2 hover:rounded-md hover:bg-purple-500 cursor-pointer"
             >
               Log Out
             </button>
-          </Link>
+         
         </div>
       ) : (
         <div className="flex justify-around w-[20%]">
           <Link to="/login">
-            <button className="text-white hover:border-white px-4 py-2 hover:rounded-md hover:bg-purple-500">
+            <button className="text-purple-400 border border-purple-500 rounded-md cursor-pointer px-4 py-2 hover:rounded-md hover:bg-purple-500">
               Sign In
             </button>
           </Link>
 
           <Link to="/signup">
-            <button className="text-white  hover:border-white px-4 py-2 hover:rounded-md hover:bg-purple-500">
+            <button className="text-purple-400 border border-purple-500 rounded-md cursor-pointer px-4 py-2 hover:rounded-md hover:bg-purple-500">
               Sign Up
             </button>
           </Link>

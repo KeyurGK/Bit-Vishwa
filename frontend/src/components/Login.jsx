@@ -1,25 +1,59 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UserAuth } from "../context/AuthContext";
+import { LoginValidation } from "../validation/LoginVlidation";
+import useAuthStore from "../zustand/useAuthStore";
+import { toast } from "sonner";
+// import { UserAuth } from "../context/AuthContext";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const { user, logIn } = UserAuth();
+  const {loginAccount,loading,responseMessage,error}=useAuthStore();
+  const [formState,setFormState]=useState({
+    emailId:"",
+    password:""
+  })
+const handleChange = (e)=>{
+const {name,value}=e.target;
+setFormState((prev)=>({
+  ...prev,
+  [name]:value
+}))
+}
+  const [errors, setErrors] = useState("");
+  // const { user, logIn } = UserAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
-    try {
-      await logIn(email, password);
-      navigate("/home");
-    } catch (error) {
-      console.log(error);
-      setError(error.message);
+    const validationResult = LoginValidation(formState);
+  
+    if(Object.keys(validationResult).length > 0){
+      setErrors(validationResult);
+      return;
     }
+
+      await loginAccount(formState,navigate);
+    
+      // if(responseMessage){
+      //   navigate("/home");
+      //   toast.success(responseMessage);
+       
+      // }else if(error){
+      
+      // toast.error(error)
+        
+      // }     
+   
   };
+
+
+  // useEffect(() => {
+  //   if (responseMessage) {
+  //     toast.success(responseMessage);
+  //     navigate("/home");
+  //   } else if (error) {
+  //     toast.error(error);
+  //   }
+  // }, [responseMessage, error]);
   return (
     <div className=" mx-[25%] mt-[5%] bg-gray-500 border-4 border-purple-900">
       <div className="flex flex-col  justify-center pt-8">
@@ -28,39 +62,46 @@ const Login = () => {
           onSubmit={handleSubmit}
         >
           <input
-            className="w-[60%] mx-[25%] px-2 py-3 border-4 rounded border-purple-900"
+            className="w-[60%] mx-[25%] text-purple-300 px-2 py-3 border-4 rounded border-purple-900"
             type="email"
             placeholder="Email"
-            onChange={(e) => setEmail(e.target.value)}
+            name="emailId"
+            onChange={(e) => handleChange(e)}
           />
+          {
+            errors.emailId && <p className='text-white text-xs mr-[40%]'>{errors.emailId}</p>
+          }
           <input
-            className="w-[60%] mx-[25%] mt-2 px-2 py-3 border-4 rounded border-purple-900"
+            className="w-[60%] mx-[25%] text-purple-300 mt-2 px-2 py-3 border-4 rounded border-purple-900"
             type="password"
             placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
+            onChange={(e) => handleChange(e)}
           />
         </form>
-        {error ? <p className="p-3 bg-red-400 my-2">{error}</p> : null}
+        {
+            errors.password && <p className='text-white text-xs mt-[1%] ml-[10%]'>{errors.password}</p>
+          }
         <button
-          className=" w-32 h-16 mx-[40%] mt-[5%] text-black font-rowdies text-lowercase border-4 border-purple-900 bg-purple-300 hover:bg-purple-500 "
+          className=" w-32 h-16 mx-[40%] mt-[5%] text-purple-300 font-rowdies text-lowercase cursor-pointer bg-purple-900 border-4 border-purple-900  hover:bg-purple-500 "
           onClick={handleSubmit}
         >
-          Sign In
+          Log In
         </button>
       </div>
 
-      <div className="flex justify-around mt-4">
+      {/* <div className="flex justify-around mt-4">
         <div className="flex">
           <input type="checkbox" />
           <p className="text-white ml-2">Remember Me</p>
         </div>
         <p className="text-white">Need Help?</p>
-      </div>
+      </div> */}
 
       <p className="text-white flex justify-center mt-4">
         New to Bit-Vishwa ?
         <Link to="/signup">
-          <span className="text-black font-rowdies hover:text-purple-900 ml-2">
+          <span className="text-purple-300 font-rowdies hover:text-purple-900 ml-2">
             {" "}
             Sign Up
           </span>
