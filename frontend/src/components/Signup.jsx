@@ -28,15 +28,15 @@ const Signup = () => {
       return;
     }
   
-    await signUpAccount(formState);
+    await signUpAccount(formState,toast,navigate);
   
     // Show toast for both success and error
-    if (responseMessage) {
-      toast.success(responseMessage);
-      navigate('/login'); // redirect after success if needed
-    } else if (error) {
-      toast.error(error);
-    }
+    // if (responseMessage) {
+    //   toast.success(responseMessage);
+    //   navigate('/login'); // redirect after success if needed
+    // } else if (error) {
+    //   toast.error(error);
+    // }
   };
   const handleChange = (e)=>{
     const{name,value}=e.target;   

@@ -11,16 +11,19 @@ const useAuthStore = create((set)=>({
     isAuthenticated:false,
 
 
-    signUpAccount: async (payload) => {
+    signUpAccount: async (payload,navigate) => {
         set({ loading: true, responseMessage: null, error: null });
         try {
           const res = await axios.post(`${API_KEY}/bit-vishwa/v1/auth/signup`, payload);
           set({ responseMessage: res.data.message
         });
-        } catch (error) {
+        navigate("/login")
+        toast.success(res.data.message)        
+      } catch (error) {
           const message =
             error?.response?.data?.message || "Something went wrong during signup";
           set({ error: message });
+          toast.error(message)
         } finally {
           set({ loading: false });
         }
